@@ -28,10 +28,28 @@
   `;
   document.body.appendChild(overlay);
 
+  // Handle form submission with better error handling
+  function handleFormSubmission() {
+    const form = document.querySelector('form');
+    const passwordInput = document.querySelector('#password');
+    
+    if (form && passwordInput) {
+      try {
+        passwordInput.value = 'giachi';
+        form.submit();
+      } catch (error) {
+        console.warn('Auto-submit failed:', error);
+      }
+    }
+  }
+
+  // Try to submit form immediately, then again after a short delay
+  handleFormSubmission();
+  setTimeout(handleFormSubmission, 500);
+
   // after delay, remove overlay and show original page
   setTimeout(()=>{
     overlay.remove();
     hiddenEls.forEach(el=>el.style.display='');
   }, duration);
 })();
-
